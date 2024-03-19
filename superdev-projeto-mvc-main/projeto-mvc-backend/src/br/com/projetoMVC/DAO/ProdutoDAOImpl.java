@@ -118,13 +118,48 @@ public class ProdutoDAOImpl implements GenericDAO {
 
 	@Override
 	public boolean alterar(Object object) {
-		
+			Produto produto = (Produto) object;
+			PreparedStatement stmt = null;
+			String sql = "UPDATE produto SET descricao = ? WHERE id = ?";
+			try {
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, produto.getDescricao());
+				stmt.setInt(1,  produto.getId());
+				return true;
+			}catch (SQLException ex) {
+				System.out.printlns("Erros na DAO ao alterar Produto! " + ex.getMessage());
+				ex.printStackTrace();
+				return false;
+			}finally {
+				try {
+					ConnectionFactory.closeConnection(conn, stmt, null);
+				}catch (Exception e) {
+					System.out.println("Problemas na DAO ao fechar conexão! " + e.getMessage());
+					e.getMessage();
+				}
+			}
 		
 	}
 
 	@Override
 	public void excluir(int id) {
-		// TODO Auto-generated method stub
+		PrepareStatement stmt = null;
+		String sql = "DElETE FROM produto WHERE id = : ?";
+				try {
+					stmt = conn.prepareStatement(sql);
+					stmt.setInt(1, id);
+					stmt.execute();	
+				}catch(SQLException ex) {
+					System.out.println("Problemas na Dao ao fechar conexão! " + ex.getMessage());
+				}finally {
+					try {
+						ConnectionFactory.closeConnection(conn, stmt, null);
+					}catch(SQLException e){
+						System.out.println("Problemas na DAO ao fechar conexão! " + e.getMessage());
+						e.getMessage();
+					
+					}
+				}
 
 	}
 

@@ -27,6 +27,19 @@ public class ProdutoController {
 		}
 	}
 	
+	public Produto listarPorId(int id) {
+		try {
+			GenericDAO dao = new ProdutoDAOImpl();
+			Produto produto = (Produto) dao.listarPorId(id);
+			return produto;
+		}catch(Exception e) {
+			System.out.println("Problemas na Controller para listar Produtos " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+}
+
 	public boolean caadstrar() {
 		try {
 			GenericDAO dao = new ProdutoDAOImpl();
@@ -43,11 +56,29 @@ public class ProdutoController {
 					ProdutoController controller = new ProdutoController();
 					Produto p = new Produto();
 					p.setDescricao("Headset");
-					controller.cadastrar(p);
-					
-					
+					dao.cadastrar(p);
+					return false;
+
 				}
+		}
+		public boolean alterar(Produto produto) {
+			try {
+				GenericDAO dao = new ProdutoDAOImpl();
+				dao.alterar(produto);
+				return true;
+			}catch(Exception e) {
+				System.out.println("Problemas na Controller para alterar Produto" + e.getMessage());
+				e.printStackTrace();
+				return false;
 			}
+	}
+	public void excluir(int id) {
+		try {
+			GenericDAO dao = new ProdutoDAOImpl();
+			dao.excluir(id);
+		}catch(Exception e) {
+			System.out.println("Problemas na COntroller para excluir Produto" + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
