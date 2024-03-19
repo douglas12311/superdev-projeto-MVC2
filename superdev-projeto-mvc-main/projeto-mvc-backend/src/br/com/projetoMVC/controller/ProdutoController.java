@@ -26,5 +26,29 @@ public class ProdutoController {
 			return null;
 		}
 	}
+	
+	public boolean caadstrar() {
+		try {
+			GenericDAO dao = new ProdutoDAOImpl();
+			dao.cadastrar(dao);
+			return true;
+			
+		}catch (Exception e) {
+			System.out.println("Problemas na Controller para cadastrar Produto" + e.getMessage());
+			e.printStackTrace();
+			return false;
+			
+			public class Main{
+				public static void main(String[] args) {
+					ProdutoController controller = new ProdutoController();
+					Produto p = new Produto();
+					p.setDescricao("Headset");
+					controller.cadastrar(p);
+					
+					
+				}
+			}
+		}
+	}
 
 }
